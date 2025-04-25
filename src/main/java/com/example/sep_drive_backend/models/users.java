@@ -13,9 +13,13 @@ public abstract class users{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;  // Use a separate auto-generated ID as the primary key
 
+    @Column(unique = true, nullable = false)
     private String username;
+    @Column(nullable = false)
     private String firstName;
+    @Column(nullable = false)
     private String lastName;
+    @Column(nullable = false, unique = true)
     private String email;
     //private Date birthDate;
     //private String passwordHash;
