@@ -3,9 +3,11 @@ package com.example.sep_drive_backend.models;
 import com.example.sep_drive_backend.constants.RoleEnum;
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+//@DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 public abstract class users{
 
 
@@ -21,28 +23,51 @@ public abstract class users{
     private String lastName;
     @Column(nullable = false, unique = true)
     private String email;
-    //private Date birthDate;
-    //private String passwordHash;
-    //private RoleEnum role;
+    @Column(nullable = false)
+    private Date birthDate;
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private RoleEnum role;
     //private String profilePicture;
 
     public users() {}
 
-    public users(String username, String firstName, String lastName, String email) {
+    public users(String username, String firstName, String lastName, String email, Date birthDate, String password, RoleEnum role) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        //this.role = role;
+        this.birthDate = birthDate;
+        this.password = password;
+        this.role = role;
     }
 
-//    public RoleEnum getRole() {
-//        return role;
-//    }
-//
-//   public void setRole(RoleEnum role) {
-//      this.role = role;
-//    }
+    public RoleEnum getRole() {
+        return role;
+    }
+
+   public void setRole(RoleEnum role) {
+      this.role = role;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public Long getId() {
         return id;

@@ -2,20 +2,25 @@ package com.example.sep_drive_backend.models;
 
 import com.example.sep_drive_backend.constants.RoleEnum;
 import com.example.sep_drive_backend.constants.VehicleClassEnum;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
+import jakarta.annotation.Nullable;
+import jakarta.persistence.*;
+
+import java.util.Date;
 
 @Entity
-@DiscriminatorValue("Driver")
+//@DiscriminatorValue("Driver")
 public class Driver extends users {
-    private float rating;
-    private int totalRides;
+    private float rating = 0;
+    private int totalRides = 0;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
     private VehicleClassEnum vehicleClass;
 
     public Driver() {}
 
-    public Driver(String username, String firstName, String lastName, String email, float rating, VehicleClassEnum vehicleClass, int totalRides) {
-        super(username, firstName, lastName, email);
+    public Driver(String username, String firstName, String lastName, String email ,Date birthDate, String password, RoleEnum role, float rating, VehicleClassEnum vehicleClass, int totalRides) {
+        super(username, firstName, lastName, email, birthDate, password, role);
         this.rating = rating;
         this.vehicleClass = vehicleClass;
         this.totalRides = totalRides;
